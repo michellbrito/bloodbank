@@ -1,10 +1,6 @@
 # Blood Bank Project
 > This blood bank project implements a terminal node js application that allows the user to SELECT, DELETE, INSERT, UPDATE, INNER JOIN. 
 
-[![NPM Version][npm-image]][npm-url]
-[![Build Status][travis-image]][travis-url]
-[![Downloads Stats][npm-downloads]][npm-url]
-
  This blood bank project implements a terminal node js application that allows the user to SELECT, DELETE, INSERT, UPDATE, INNER JOIN. 
 
 
@@ -14,7 +10,17 @@
 OS X & Linux:
 
 ```sh
-npm install my-crazy-module --save
+// clone the repo into computer 
+git clone https://github.com/michellbrito/bloodbank.git
+
+// install npm stages stored in the package.json
+npm i
+
+// cd into the repo
+cd bloodbank
+
+// start the node application 
+node bloodbank.js
 ```
 
 ## Usage example
