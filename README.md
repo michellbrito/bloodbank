@@ -1,5 +1,5 @@
-# Product Name
-> Short blurb about what your product does.
+# Blood Bank Project
+> This blood bank project implements a terminal node js application that allows the user to SELECT, DELETE, INSERT, UPDATE, INNER JOIN. 
 
 [![NPM Version][npm-image]][npm-url]
 [![Build Status][travis-image]][travis-url]
