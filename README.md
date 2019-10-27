@@ -29,6 +29,11 @@ node bloodbank.js
 
 ## Usage example
 
+- Run the schema.sql, blood_bank.sql, donor.sql, hospital.sql, patient.sql, blood_bank_donations.sql, blood_type_compability.sql, hospital_donations.sql, patient_blood_usage.sql in your mysql workbench. 
+
+- Change the password of the mysql databae to match yours, bloodbank.js
+`password: "password",` (line 16).
+
 A few motivating and useful examples of how your product can be used. Spice this up with code blocks and potentially more screenshots.
 
 _For more examples and usage, please refer to the [Wiki][wiki]._
