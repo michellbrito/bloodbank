@@ -5,9 +5,9 @@
 [![Build Status][travis-image]][travis-url]
 [![Downloads Stats][npm-downloads]][npm-url]
 
-One to two paragraph statement about your product and what it does.
+ This blood bank project implements a terminal node js application that allows the user to SELECT, DELETE, INSERT, UPDATE, INNER JOIN. 
 
-![](header.png)
+
 
 ## Installation
 
@@ -15,12 +15,6 @@ OS X & Linux:
 
 ```sh
 npm install my-crazy-module --save
-```
-
-Windows:
-
-```sh
-edit autoexec.bat
 ```
 
 ## Usage example
