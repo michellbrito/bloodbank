@@ -3,7 +3,7 @@
 
  This blood bank project implements a terminal node js application that allows the user to SELECT, DELETE, INSERT, UPDATE, INNER JOIN. 
 
-## Dependecies Used 
+## Dependencies Used 
 - mysql
 - console.table
 - inquirer
