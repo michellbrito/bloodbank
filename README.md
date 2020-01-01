@@ -30,7 +30,7 @@ touch .env
 open .env
 DB_PASS=your_password
 
-// install npm stages stored in the package.json
+// install npm packages stored in the package.json
 npm i
 
 // start the node application 
