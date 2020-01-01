@@ -25,8 +25,10 @@ git clone https://github.com/michellbrito/bloodbank.git
 // cd into the repo
 cd bloodbank
 
-// create an .env file
-ex: DB_PASS=your_password
+// create an .env file and password to .env
+touch .env
+open .env
+`DB_PASS=your_password`
 
 // install npm stages stored in the package.json
 npm i
