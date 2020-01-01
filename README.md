@@ -7,7 +7,7 @@
 - mysql
 - console.table
 - inquirer
-
+- dotenv
 
 ## Installation
 
@@ -23,6 +23,9 @@ npm i
 // cd into the repo
 cd bloodbank
 
+// create an .env file
+ex: DB_PASS=your_password
+
 // start the node application 
 node bloodbank.js
 ```
@@ -31,9 +34,12 @@ node bloodbank.js
 
 - Run the schema.sql, blood_bank.sql, donor.sql, hospital.sql, patient.sql, blood_bank_donations.sql, blood_type_compability.sql, hospital_donations.sql, patient_blood_usage.sql in your mysql workbench. 
 
-- Change the password of the mysql databae to match yours, bloodbank.js
-`password: "password",` (line 16).
+- Create an .env file and set your own password
+`DB_PASS: your_password` 
 
-A few motivating and useful examples of how your product can be used. Spice this up with code blocks and potentially more screenshots.
+- Run the application
+ `node bloodbank.js`
+ 
+- You can now SELECT, INSERT, UPDATE, DELETE, SELECT INNER JOINS, QUIT by clicking the options
+![alt text](https://imgur.com/HN9ywMZ "Blood Bank Options")
 
-_For more examples and usage, please refer to the [Wiki][wiki]._
