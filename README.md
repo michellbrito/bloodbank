@@ -44,7 +44,7 @@ node bloodbank.js
 
 ![Image](https://i.ibb.co/dPTCdL2/Screen-Shot-2019-12-31-at-7-40-17-PM.png)
 
-![Video](https://media.giphy.com/media/kHmZZtRGfGX4aKnHdr/giphy.gif)
+![Video](https://media.giphy.com/media/kHmZZtRGfGX4aKnHdr/giphy.gif =250x250)
 
 
 
