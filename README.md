@@ -46,6 +46,5 @@ node bloodbank.js
 
 ![Video](https://media.giphy.com/media/kHmZZtRGfGX4aKnHdr/giphy.gif)
 
-![html5](https://giphy.com/gifs/kHmZZtRGfGX4aKnHdr/html5)
 
 
