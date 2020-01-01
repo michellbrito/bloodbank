@@ -42,8 +42,6 @@ node bloodbank.js
  
 - You can now SELECT, INSERT, UPDATE, DELETE, SELECT INNER JOINS, QUIT by clicking the options
 
-![Image](https://i.ibb.co/dPTCdL2/Screen-Shot-2019-12-31-at-7-40-17-PM.png)
-
 ![Video](blood_bank_demo.gif)
 
 
