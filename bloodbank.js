@@ -1,6 +1,7 @@
 // Initializes the npm packages used
 var mysql = require("mysql");
 var inquirer = require("inquirer");
+require("dotenv").config();
 require("console.table");
 
 // Initializes the connection variable to sync with a MySQL database
@@ -14,7 +15,7 @@ var connection = mysql.createConnection({
   user: "root",
 
   // Your password
-  password: "password",
+  password: process.env.DB_PASS,
 
   // Your database name
   database: "blood_bank_db"
@@ -28,7 +29,6 @@ connection.connect(function (err) {
   loadOptionsMenu();
 });
 
-
 function loadOptionsMenu() {
   inquirer
     .prompt({
@@ -38,19 +38,27 @@ function loadOptionsMenu() {
       message: "What would you like to do?"
     })
     .then(function (val) {
-      if (val.choice == "SELECT") {
-        loadSelect();
-      } else if (val.choice == "INSERT") {
-        loadInsert();
-      } else if (val.choice == "UPDATE") {
-        loadUpdate();
-      } else if (val.choice == "DELETE") {
-        loadDelete();
-      } else if (val.choice == "SELECT INNER JOINS") {
-        loadInnerJoins();
-      } else if (val.choice == "QUIT") {
-        process.exit(0);
-
+      switch (val.choice){
+        case "SELECT":
+          loadSelect();
+          break;
+        case "INSERT":
+          loadInsert();
+          break;
+        case "UPDATE":
+          loadUpdate();
+          break;
+        case "DELETE":
+          loadDelete();
+          break;
+        case "SELECT INNER JOINS":
+          loadInnerJoins();
+          break;
+        case "QUIT":
+          process.exit(0);
+        default:
+          console.log("Please pick an option");
+          loadOptionsMenu();
       }
     });
 }
@@ -64,16 +72,24 @@ function loadSelect() {
       message: "Which table would you like to SELECT?"
     })
     .then(function (val) {
-      if (val.choice == "blood bank") {
-        loadBloodBankOptions();
-      } else if (val.choice == "donor") {
-        loadDonorOptions();
-      } else if (val.choice == "hospital") {
-        loadHospitalOptions();
-      } else if (val.choice == "patient") {
-        loadPatientOptions();
-      } else if (val.choice == "Quit") {
-        process.exit(0);
+      switch (val.choice){
+        case "blood bank":
+          loadBloodBankOptions();
+          break;
+        case "donor":
+          loadDonorOptions();
+          break;
+        case "hospital":
+          loadHospitalOptions();
+          break;
+        case "patient":
+          loadPatientOptions();
+          break;
+        case "Quit":
+          process.exit(0);
+        default:
+          console.log("Please pick an option");
+          loadSelect();
       }
     });
 }
@@ -119,16 +135,20 @@ function loadInsert() {
       message: "Which table would you like to INSERT to?"
     })
     .then(function (val) {
-      if (val.choice == "blood bank") {
-        displayInsertIntoBloodBank();
-      } else if (val.choice == "donor") {
-        displayInsertIntoDonor();
-      } else if (val.choice == "hospital") {
-        displayInsertIntoHospital();
-      } else if (val.choice == "patient") {
-        displayInsertIntoPatient();
-      } else if (val.choice == "Quit") {
-        process.exit(0);
+      switch (val.choice){
+        case "blood bank":
+          displayInsertIntoBloodBank();
+        case "donor":
+          displayInsertIntoDonor();
+        case "hospital":
+          displayInsertIntoHospital();
+        case "patient":
+          displayInsertIntoPatient();
+        case "Quit":
+          process.exit(0);
+        default:
+          console.log("Please pick an option");
+          loadInsert();
       }
     });
 }
@@ -327,7 +347,6 @@ function insertIntoPatient(val) {
   );
 }
 
-
 function loadUpdate() {
   inquirer
     .prompt({
@@ -337,16 +356,20 @@ function loadUpdate() {
       message: "Which table would you like to UPDATE to?"
     })
     .then(function (val) {
-      if (val.choice == "blood bank") {
-        displayUpdateBloodBank();
-      } else if (val.choice == "donor") {
-        displayUpdateDonor();
-      } else if (val.choice == "hospital") {
-        displayUpdateHospital();
-      } else if (val.choice == "patient") {
-        displayUpdatePatient();
-      } else if (val.choice == "Quit") {
-        process.exit(0);
+      switch (val.choice){
+        case "blood bank":
+          displayUpdateBloodBank();
+        case "donor":
+          displayUpdateDonor();
+        case "hospital":
+          displayUpdateHospital();
+        case "patient":
+          displayUpdatePatient();
+        case "Quit":
+          process.exit(0);
+        default:
+          console.log("Please pick an option");
+          loadUpdate();
       }
     });
 }
@@ -375,59 +398,66 @@ function displayUpdateBloodBank() {
 }
 
 function updateBloodBank(val) {
-
-  if (val.choice == "blood_bank_name") {
-    connection.query(
-      "UPDATE blood_bank SET blood_bank_name = ? WHERE blood_bank_id = ?",
-      [val.updatedValue, val.idValue],
-      function (err, res) {
-        if (err) throw err;
-        console.log("\nSuccessfully added");
-        loadOptionsMenu();
-      }
-    );
-  } else if (val.choice == "street") {
-    connection.query(
-      "UPDATE blood_bank SET street = ? WHERE blood_bank_id = ?",
-      [val.updatedValue, val.idValue],
-      function (err, res) {
-        if (err) throw err;
-        console.log("\nSuccessfully added");
-        loadOptionsMenu();
-      }
-    );
-  } else if (val.choice == "city") {
-    connection.query(
-      "UPDATE blood_bank SET city = ? WHERE blood_bank_id = ?",
-      [val.updatedValue, val.idValue],
-      function (err, res) {
-        if (err) throw err;
-        console.log("\nSuccessfully added");
-        loadOptionsMenu();
-      }
-    );
-  } else if (val.choice == "zipcode") {
-    connection.query(
-      "UPDATE blood_bank SET zipcode = ? WHERE blood_bank_id = ?",
-      [val.updatedValue, val.idValue],
-      function (err, res) {
-        if (err) throw err;
-        console.log("\nSuccessfully added");
-        loadOptionsMenu();
-      }
-    );
-  } else if (val.choice == "phone") {
-    connection.query(
-      "UPDATE blood_bank SET phone = ? WHERE blood_bank_id = ?",
-      [val.updatedValue, val.idValue],
-      function (err, res) {
-        if (err) throw err;
-        console.log("\nSuccessfully added");
-        loadOptionsMenu();
-      }
-    );
+  switch (val.choice){
+    case "blood_bank_name":
+      connection.query(
+        "UPDATE blood_bank SET blood_bank_name = ? WHERE blood_bank_id = ?",
+        [val.updatedValue, val.idValue],
+        function (err, res) {
+          if (err) throw err;
+          console.log("\nSuccessfully added");
+          loadOptionsMenu();
+        }
+      );
+      break;
+    case "street":
+      connection.query(
+        "UPDATE blood_bank SET street = ? WHERE blood_bank_id = ?",
+        [val.updatedValue, val.idValue],
+        function (err, res) {
+          if (err) throw err;
+          console.log("\nSuccessfully added");
+          loadOptionsMenu();
+        }
+      );
+      break;
+    case "city":
+      connection.query(
+        "UPDATE blood_bank SET city = ? WHERE blood_bank_id = ?",
+        [val.updatedValue, val.idValue],
+        function (err, res) {
+          if (err) throw err;
+          console.log("\nSuccessfully added");
+          loadOptionsMenu();
+        }
+      );
+      break;
+    case "zipcode":
+      connection.query(
+        "UPDATE blood_bank SET zipcode = ? WHERE blood_bank_id = ?",
+        [val.updatedValue, val.idValue],
+        function (err, res) {
+          if (err) throw err;
+          console.log("\nSuccessfully added");
+          loadOptionsMenu();
+        }
+      );
+      break;
+    case "phone":
+      connection.query(
+        "UPDATE blood_bank SET phone = ? WHERE blood_bank_id = ?",
+        [val.updatedValue, val.idValue],
+        function (err, res) {
+          if (err) throw err;
+          console.log("\nSuccessfully added");
+          loadOptionsMenu();
+        }
+      );
+      break;
+    default:
+      console.log("Please pick an option");
+      displayUpdateBloodBank();
   }
-
 }
 
 function displayUpdateDonor() {
@@ -454,88 +484,99 @@ function displayUpdateDonor() {
 }
 
 function updateDonor(val) {
-
-  if (val.choice == "first_name") {
-    connection.query(
-      "UPDATE donor SET first_name = ? WHERE donor_id = ?",
-      [val.updatedValue, val.idValue],
-      function (err, res) {
-        if (err) throw err;
-        console.log("\nSuccessfully added");
-        loadOptionsMenu();
-      }
-    );
-  } else if (val.choice == "last_name") {
-    connection.query(
-      "UPDATE donor SET last_name = ? WHERE donor_id = ?",
-      [val.updatedValue, val.idValue],
-      function (err, res) {
-        if (err) throw err;
-        console.log("\nSuccessfully added");
-        loadOptionsMenu();
-      }
-    );
-  } else if (val.choice == "blood_group") {
-    connection.query(
-      "UPDATE donor SET blood_group = ? WHERE donor_id = ?",
-      [val.updatedValue, val.idValue],
-      function (err, res) {
-        if (err) throw err;
-        console.log("\nSuccessfully added");
-        loadOptionsMenu();
-      }
-    );
-  } else if (val.choice == "medical_report") {
-    connection.query(
-      "UPDATE donor SET medical_report = ? WHERE donor_id = ?",
-      [val.updatedValue, val.idValue],
-      function (err, res) {
-        if (err) throw err;
-        console.log("\nSuccessfully added");
-        loadOptionsMenu();
-      }
-    );
-  } else if (val.choice == "street") {
-    connection.query(
-      "UPDATE donor SET street = ? WHERE donor_id = ?",
-      [val.updatedValue, val.idValue],
-      function (err, res) {
-        if (err) throw err;
-        console.log("\nSuccessfully added");
-        loadOptionsMenu();
-      }
-    );
-  } else if (val.choice == "city") {
-    connection.query(
-      "UPDATE donor SET city = ? WHERE donor_id = ?",
-      [val.updatedValue, val.idValue],
-      function (err, res) {
-        if (err) throw err;
-        console.log("\nSuccessfully added");
-        loadOptionsMenu();
-      }
-    );
-  } else if (val.choice == "zipcode") {
-    connection.query(
-      "UPDATE donor SET zipcode = ? WHERE donor_id = ?",
-      [val.updatedValue, val.idValue],
-      function (err, res) {
-        if (err) throw err;
-        console.log("\nSuccessfully added");
-        loadOptionsMenu();
-      }
-    );
-  } else if (val.choice == "phone") {
-    connection.query(
-      "UPDATE donor SET phone = ? WHERE donor_id = ?",
-      [val.updatedValue, val.idValue],
-      function (err, res) {
-        if (err) throw err;
-        console.log("\nSuccessfully added");
-        loadOptionsMenu();
-      }
-    );
-  };
+  switch (val.choice){
+    case "first_name":
+      connection.query(
+        "UPDATE donor SET first_name = ? WHERE donor_id = ?",
+        [val.updatedValue, val.idValue],
+        function (err, res) {
+          if (err) throw err;
+          console.log("\nSuccessfully added");
+          loadOptionsMenu();
+        }
+      );
+      break;
+    case "last_name":
+      connection.query(
+        "UPDATE donor SET last_name = ? WHERE donor_id = ?",
+        [val.updatedValue, val.idValue],
+        function (err, res) {
+          if (err) throw err;
+          console.log("\nSuccessfully added");
+          loadOptionsMenu();
+        }
+      );
+      break;
+    case "blood_group":
+      connection.query(
+        "UPDATE donor SET blood_group = ? WHERE donor_id = ?",
+        [val.updatedValue, val.idValue],
+        function (err, res) {
+          if (err) throw err;
+          console.log("\nSuccessfully added");
+          loadOptionsMenu();
+        }
+      );
+      break;
+    case "medical_report":
+      connection.query(
+        "UPDATE donor SET medical_report = ? WHERE donor_id = ?",
+        [val.updatedValue, val.idValue],
+        function (err, res) {
+          if (err) throw err;
+          console.log("\nSuccessfully added");
+          loadOptionsMenu();
+        }
+      );
+      break;
+    case "street":
+      connection.query(
+        "UPDATE donor SET street = ? WHERE donor_id = ?",
+        [val.updatedValue, val.idValue],
+        function (err, res) {
+          if (err) throw err;
+          console.log("\nSuccessfully added");
+          loadOptionsMenu();
+        }
+      );
+      break;
+    case "city":
+      connection.query(
+        "UPDATE donor SET city = ? WHERE donor_id = ?",
+        [val.updatedValue, val.idValue],
+        function (err, res) {
+          if (err) throw err;
+          console.log("\nSuccessfully added");
+          loadOptionsMenu();
+        }
+      );
+      break;
+    case "zipcode":
+      connection.query(
+        "UPDATE donor SET zipcode = ? WHERE donor_id = ?",
+        [val.updatedValue, val.idValue],
+        function (err, res) {
+          if (err) throw err;
+          console.log("\nSuccessfully added");
+          loadOptionsMenu();
+        }
+      );
+      break;
+    case "phone":
+      connection.query(
+        "UPDATE donor SET phone = ? WHERE donor_id = ?",
+        [val.updatedValue, val.idValue],
+        function (err, res) {
+          if (err) throw err;
+          console.log("\nSuccessfully added");
+          loadOptionsMenu();
+        }
+      );
+      break;
+    default:
+      console.log("Please pick an option");
+      displayUpdateDonor();
+  }
 }
 
 function displayUpdateHospital() {
@@ -562,58 +603,66 @@ function displayUpdateHospital() {
 }
 
 function updateHospital(val) {
-
-  if (val.choice == "hospital_name") {
-    connection.query(
-      "UPDATE hospital SET hospital_name = ? WHERE hospital_id = ?",
-      [val.updatedValue, val.idValue],
-      function (err, res) {
-        if (err) throw err;
-        console.log("\nSuccessfully added");
-        loadOptionsMenu();
-      }
-    );
-  } else if (val.choice == "street") {
-    connection.query(
-      "UPDATE hospital SET street = ? WHERE hospital_id = ?",
-      [val.updatedValue, val.idValue],
-      function (err, res) {
-        if (err) throw err;
-        console.log("\nSuccessfully added");
-        loadOptionsMenu();
-      }
-    );
-  } else if (val.choice == "city") {
-    connection.query(
-      "UPDATE hospital SET city = ? WHERE hospital_id = ?",
-      [val.updatedValue, val.idValue],
-      function (err, res) {
-        if (err) throw err;
-        console.log("\nSuccessfully added");
-        loadOptionsMenu();
-      }
-    );
-  } else if (val.choice == "zipcode") {
-    connection.query(
-      "UPDATE hospital SET zipcode = ? WHERE hospital_id = ?",
-      [val.updatedValue, val.idValue],
-      function (err, res) {
-        if (err) throw err;
-        console.log("\nSuccessfully added");
-        loadOptionsMenu();
-      }
-    );
-  } else if (val.choice == "phone") {
-    connection.query(
-      "UPDATE hospital SET phone = ? WHERE hospital_id = ?",
-      [val.updatedValue, val.idValue],
-      function (err, res) {
-        if (err) throw err;
-        console.log("\nSuccessfully added");
-        loadOptionsMenu();
-      }
-    );
-  };
+  switch (val.choice){
+    case "hospital_name":
+      connection.query(
+        "UPDATE hospital SET hospital_name = ? WHERE hospital_id = ?",
+        [val.updatedValue, val.idValue],
+        function (err, res) {
+          if (err) throw err;
+          console.log("\nSuccessfully added");
+          loadOptionsMenu();
+        }
+      );
+      break;
+    case "street":
+      connection.query(
+        "UPDATE hospital SET street = ? WHERE hospital_id = ?",
+        [val.updatedValue, val.idValue],
+        function (err, res) {
+          if (err) throw err;
+          console.log("\nSuccessfully added");
+          loadOptionsMenu();
+        }
+      );
+      break;
+    case "city":
+      connection.query(
+        "UPDATE hospital SET city = ? WHERE hospital_id = ?",
+        [val.updatedValue, val.idValue],
+        function (err, res) {
+          if (err) throw err;
+          console.log("\nSuccessfully added");
+          loadOptionsMenu();
+        }
+      );
+      break;
+    case "zipcode":
+      connection.query(
+        "UPDATE hospital SET zipcode = ? WHERE hospital_id = ?",
+        [val.updatedValue, val.idValue],
+        function (err, res) {
+          if (err) throw err;
+          console.log("\nSuccessfully added");
+          loadOptionsMenu();
+        }
+      );
+      break;
+    case "phone":
+      connection.query(
+        "UPDATE hospital SET phone = ? WHERE hospital_id = ?",
+        [val.updatedValue, val.idValue],
+        function (err, res) {
+          if (err) throw err;
+          console.log("\nSuccessfully added");
+          loadOptionsMenu();
+        }
+      );
+      break;
+    default:
+      console.log("Pleaes pick an option");
+      displayUpdateHospital();
+  }
 }
 
 function displayUpdatePatient() {
@@ -640,47 +689,54 @@ function displayUpdatePatient() {
 }
 
 function updatePatient(val) {
-
-  if (val.choice == "first_name") {
-    connection.query(
-      "UPDATE patient SET first_name = ? WHERE patient_id = ?",
-      [val.updatedValue, val.idValue],
-      function (err, res) {
-        if (err) throw err;
-        console.log("\nSuccessfully added");
-        loadOptionsMenu();
-      }
-    );
-  } else if (val.choice == "last_name") {
-    connection.query(
-      "UPDATE patient SET last_name = ? WHERE patient_id = ?",
-      [val.updatedValue, val.idValue],
-      function (err, res) {
-        if (err) throw err;
-        console.log("\nSuccessfully added");
-        loadOptionsMenu();
-      }
-    );
-  } else if (val.choice == "blood_group") {
-    connection.query(
-      "UPDATE patient SET blood_group = ? WHERE patient_id = ?",
-      [val.updatedValue, val.idValue],
-      function (err, res) {
-        if (err) throw err;
-        console.log("\nSuccessfully added");
-        loadOptionsMenu();
-      }
-    );
-  } else if (val.choice == "patient_disease") {
-    connection.query(
-      "UPDATE patient SET patient_disease = ? WHERE patient_id = ?",
-      [val.updatedValue, val.idValue],
-      function (err, res) {
-        if (err) throw err;
-        console.log("\nSuccessfully added");
-        loadOptionsMenu();
-      }
-    );
+  switch (val.choice){
+    case "first_name":
+      connection.query(
+        "UPDATE patient SET first_name = ? WHERE patient_id = ?",
+        [val.updatedValue, val.idValue],
+        function (err, res) {
+          if (err) throw err;
+          console.log("\nSuccessfully added");
+          loadOptionsMenu();
+        }
+      );
+      break;
+    case "last_name":
+      connection.query(
+        "UPDATE patient SET last_name = ? WHERE patient_id = ?",
+        [val.updatedValue, val.idValue],
+        function (err, res) {
+          if (err) throw err;
+          console.log("\nSuccessfully added");
+          loadOptionsMenu();
+        }
+      );
+      break;
+    case "blood_group":
+      connection.query(
+        "UPDATE patient SET blood_group = ? WHERE patient_id = ?",
+        [val.updatedValue, val.idValue],
+        function (err, res) {
+          if (err) throw err;
+          console.log("\nSuccessfully added");
+          loadOptionsMenu();
+        }
+      );
+      break;
+    case "patient_disease":
+      connection.query(
+        "UPDATE patient SET patient_disease = ? WHERE patient_id = ?",
+        [val.updatedValue, val.idValue],
+        function (err, res) {
+          if (err) throw err;
+          console.log("\nSuccessfully added");
+          loadOptionsMenu();
+        }
+      );
+      break;
+    default:
+      console.log("Please pick an option");
+      displayUpdatePatient();
   }
 }
 
@@ -693,16 +749,24 @@ function loadDelete() {
       message: "Which table would you like to DELETE from?"
     })
     .then(function (val) {
-      if (val.choice == "blood bank") {
-        displayDeleteBloodBank();
-      } else if (val.choice == "donor") {
-        displayDeleteDonor();
-      } else if (val.choice == "hospital") {
-        displayDeleteHospital();
-      } else if (val.choice == "patient") {
-        displayDeletePatient();
-      } else if (val.choice == "Quit") {
-        process.exit(0);
+      switch (val.choice){
+        case "blood bank":
+          displayDeleteBloodBank();
+          break;
+        case "donor":
+          displayDeleteDonor();
+          break;
+        case "hospital":
+          displayDeleteHospital();
+          break;
+        case "patient":
+          displayDeletePatient();
+          break;
+        case "Quit":
+          process.exit(0);
+        default:
+          console.log("Please pick an option");
+          loadDelete();
       }
     });
 }
@@ -726,73 +790,81 @@ function displayDeleteBloodBank() {
 }
 
 function deleteBloodBank(val) {
-  if (val.choice == "blood_bank_name") {
-    connection.query(
-      "DELETE FROM blood_bank WHERE blood_bank_name = ?",
-      [val.value],
-      function (err, res) {
-        if (err) throw err;
-        console.table(res);
-        console.log("---------------------");
-        console.log("DELETED FROM BLOOD BANK!\n");
-        console.log("---------------------");
-        loadOptionsMenu();
-      }
-    );
-  } else if (val.choice == "street") {
-    connection.query(
-      "DELETE FROM blood_bank WHERE street = ?",
-      [val.value],
-      function (err, res) {
-        if (err) throw err;
-        console.table(res);
-        console.log("---------------------");
-        console.log("DELETED FROM BLOOD BANK!\n");
-        console.log("---------------------");
-        loadOptionsMenu();
-      }
-    );
-  } else if (val.choice == "city") {
-    connection.query(
-      "DELETE FROM blood_bank WHERE city = ?",
-      [val.value],
-      function (err, res) {
-        if (err) throw err;
-        console.table(res);
-        console.log("---------------------");
-        console.log("DELETED FROM BLOOD BANK!\n");
-        console.log("---------------------");
-        loadOptionsMenu();
-      }
-    );
-  } else if (val.choice == "zipcode") {
-    connection.query(
-      "DELETE FROM blood_bank WHERE zipcode = ?",
-      [val.value],
-      function (err, res) {
-        if (err) throw err;
-        console.table(res);
-        console.log("---------------------");
-        console.log("DELETED FROM BLOOD BANK!\n");
-        console.log("---------------------");
-        loadOptionsMenu();
-      }
-    );
-  } else if (val.choice == "phone") {
-    connection.query(
-      "DELETE FROM blood_bank WHERE phone = ?",
-      [val.value],
-      function (err, res) {
-        if (err) throw err;
-        console.table(res);
-        console.log("---------------------");
-        console.log("DELETED FROM BLOOD BANK!\n");
-        console.log("---------------------");
-        loadOptionsMenu();
-      }
-    );
+  switch (val.choice){
+    case "blood_bank_name":
+      connection.query(
+        "DELETE FROM blood_bank WHERE blood_bank_name = ?",
+        [val.value],
+        function (err, res) {
+          if (err) throw err;
+          console.table(res);
+          console.log("---------------------");
+          console.log("DELETED FROM BLOOD BANK!\n");
+          console.log("---------------------");
+          loadOptionsMenu();
+        }
+      );
+      break;
+    case "street":
+      connection.query(
+        "DELETE FROM blood_bank WHERE street = ?",
+        [val.value],
+        function (err, res) {
+          if (err) throw err;
+          console.table(res);
+          console.log("---------------------");
+          console.log("DELETED FROM BLOOD BANK!\n");
+          console.log("---------------------");
+          loadOptionsMenu();
+        }
+      );
+      break;
+    case "city":
+      connection.query(
+        "DELETE FROM blood_bank WHERE city = ?",
+        [val.value],
+        function (err, res) {
+          if (err) throw err;
+          console.table(res);
+          console.log("---------------------");
+          console.log("DELETED FROM BLOOD BANK!\n");
+          console.log("---------------------");
+          loadOptionsMenu();
+        }
+      );
+      break;
+    case "zipcode":
+      connection.query(
+        "DELETE FROM blood_bank WHERE zipcode = ?",
+        [val.value],
+        function (err, res) {
+          if (err) throw err;
+          console.table(res);
+          console.log("---------------------");
+          console.log("DELETED FROM BLOOD BANK!\n");
+          console.log("---------------------");
+          loadOptionsMenu();
+        }
+      );
+      break;
+    case "phone":
+      connection.query(
+        "DELETE FROM blood_bank WHERE phone = ?",
+        [val.value],
+        function (err, res) {
+          if (err) throw err;
+          console.table(res);
+          console.log("---------------------");
+          console.log("DELETED FROM BLOOD BANK!\n");
+          console.log("---------------------");
+          loadOptionsMenu();
+        }
+      );
+      break;
+    default:
+      console.log("Please pick an option");
+      displayDeleteBloodBank();
   }
-
 }
 
 function displayDeleteDonor() {
@@ -806,7 +878,7 @@ function displayDeleteDonor() {
       },
       {
         type: "input",
-        name: "idValue",
+        name: "value",
         message: "Enter value that you would like to be deleted"
       }
     ])
@@ -814,103 +886,115 @@ function displayDeleteDonor() {
 }
 
 function deleteDonor(val) {
-  if (val.choice == "first_name") {
-    connection.query(
-      "DELETE FROM donor WHERE first_name = ?",
-      [val.value],
-      function (err, res) {
-        if (err) throw err;
-        console.log("---------------------");
-        console.log("DELETED FROM DONOR!\n");
-        console.log("---------------------");
-        loadOptionsMenu();
-      }
-    );
-  } else if (val.choice == "last_name") {
-    connection.query(
-      "DELETE FROM donor WHERE last_name = ?",
-      [val.value],
-      function (err, res) {
-        if (err) throw err;
-        console.log("---------------------");
-        console.log("DELETED FROM DONOR!\n");
-        console.log("---------------------");
-        loadOptionsMenu();
-      }
-    );
-  } else if (val.choice == "blood_group") {
-    connection.query(
-      "DELETE FROM donor WHERE blood_group = ?",
-      [val.value],
-      function (err, res) {
-        if (err) throw err;
-        console.log("---------------------");
-        console.log("DELETED FROM DONOR!\n");
-        console.log("---------------------");
-        loadOptionsMenu();
-      }
-    );
-  } else if (val.choice == "medical_report") {
-    connection.query(
-      "DELETE FROM donor WHERE medical_report = ?",
-      [val.value],
-      function (err, res) {
-        if (err) throw err;
-        console.log("---------------------");
-        console.log("DELETED FROM DONOR!\n");
-        console.log("---------------------");
-        loadOptionsMenu();
-      }
-    );
-  } else if (val.choice == "street") {
-    connection.query(
-      "DELETE FROM donor WHERE street = ?",
-      [val.value],
-      function (err, res) {
-        if (err) throw err;
-        console.log("---------------------");
-        console.log("DELETED FROM DONOR!\n");
-        console.log("---------------------");
-        loadOptionsMenu();
-      }
-    );
-  } else if (val.choice == "city") {
-    connection.query(
-      "DELETE FROM donor WHERE city = ?",
-      [val.value],
-      function (err, res) {
-        if (err) throw err;
-        console.log("---------------------");
-        console.log("DELETED FROM DONOR!\n");
-        console.log("---------------------");
-        loadOptionsMenu();
-      }
-    );
-  } else if (val.choice == "zipcode") {
-    connection.query(
-      "DELETE FROM donor WHERE zipcode = ?",
-      [val.value],
-      function (err, res) {
-        if (err) throw err;
-        console.log("---------------------");
-        console.log("DELETED FROM DONOR!\n");
-        console.log("---------------------");
-        loadOptionsMenu();
-      }
-    );
-  } else if (val.choice == "phone") {
-    connection.query(
-      "DELETE FROM donor WHERE phone = ?",
-      [val.value],
-      function (err, res) {
-        if (err) throw err;
-        console.log("---------------------");
-        console.log("DELETED FROM DONOR!\n");
-        console.log("---------------------");
-        loadOptionsMenu();
-      }
-    );
-  };
+  switch (val.choice){
+    case "first_name":
+      connection.query(
+        "DELETE FROM donor WHERE first_name = ?",
+        [val.value],
+        function (err, res) {
+          if (err) throw err;
+          console.log("---------------------");
+          console.log("DELETED FROM DONOR!\n");
+          console.log("---------------------");
+          loadOptionsMenu();
+        }
+      );
+      break;
+    case "last_name":
+      connection.query(
+        "DELETE FROM donor WHERE last_name = ?",
+        [val.value],
+        function (err, res) {
+          if (err) throw err;
+          console.log("---------------------");
+          console.log("DELETED FROM DONOR!\n");
+          console.log("---------------------");
+          loadOptionsMenu();
+        }
+      );
+      break;
+    case "blood_group":
+      connection.query(
+        "DELETE FROM donor WHERE blood_group = ?",
+        [val.value],
+        function (err, res) {
+          if (err) throw err;
+          console.log("---------------------");
+          console.log("DELETED FROM DONOR!\n");
+          console.log("---------------------");
+          loadOptionsMenu();
+        }
+      );
+      break;
+    case "medical_report":
+      connection.query(
+        "DELETE FROM donor WHERE medical_report = ?",
+        [val.value],
+        function (err, res) {
+          if (err) throw err;
+          console.log("---------------------");
+          console.log("DELETED FROM DONOR!\n");
+          console.log("---------------------");
+          loadOptionsMenu();
+        }
+      );
+      break;
+    case "street":
+      connection.query(
+        "DELETE FROM donor WHERE street = ?",
+        [val.value],
+        function (err, res) {
+          if (err) throw err;
+          console.log("---------------------");
+          console.log("DELETED FROM DONOR!\n");
+          console.log("---------------------");
+          loadOptionsMenu();
+        }
+      );
+      break;
+    case "city":
+      connection.query(
+        "DELETE FROM donor WHERE city = ?",
+        [val.value],
+        function (err, res) {
+          if (err) throw err;
+          console.log("---------------------");
+          console.log("DELETED FROM DONOR!\n");
+          console.log("---------------------");
+          loadOptionsMenu();
+        }
+      );
+      break;
+    case "zipcode":
+      connection.query(
+        "DELETE FROM donor WHERE zipcode = ?",
+        [val.value],
+        function (err, res) {
+          if (err) throw err;
+          console.log("---------------------");
+          console.log("DELETED FROM DONOR!\n");
+          console.log("---------------------");
+          loadOptionsMenu();
+        }
+      );
+      break;
+    case "phone":
+      connection.query(
+        "DELETE FROM donor WHERE phone = ?",
+        [val.value],
+        function (err, res) {
+          if (err) throw err;
+          console.log("---------------------");
+          console.log("DELETED FROM DONOR!\n");
+          console.log("---------------------");
+          loadOptionsMenu();
+        }
+      );
+      break;
+    default:
+      console.log("Please pick an option")
+      displayDeleteDonor();
+  }
 };
 
 function displayDeleteHospital() {
@@ -924,7 +1008,7 @@ function displayDeleteHospital() {
       },
       {
         type: "input",
-        name: "idValue",
+        name: "value",
         message: "Enter value that you would like to be deleted"
       }
     ])
@@ -932,67 +1016,76 @@ function displayDeleteHospital() {
 }
 
 function deleteHospital(val) {
-  if (val.choice == "hospital_name") {
-    connection.query(
-      "DELETE FROM hospital WHERE hospital_name = ?",
-      [val.value],
-      function (err, res) {
-        if (err) throw err;
-        console.log("---------------------");
-        console.log("DELETED FROM HOSPITAL!\n");
-        console.log("---------------------");
-        loadOptionsMenu();
-      }
-    );
-  } else if (val.choice == "street") {
-    connection.query(
-      "DELETE FROM hospital WHERE street = ?",
-      [val.value],
-      function (err, res) {
-        if (err) throw err;
-        console.log("---------------------");
-        console.log("DELETED FROM HOSPITAL!\n");
-        console.log("---------------------");
-        loadOptionsMenu();
-      }
-    );
-  } else if (val.choice == "city") {
-    connection.query(
-      "DELETE FROM hospital WHERE city = ?",
-      [val.value],
-      function (err, res) {
-        if (err) throw err;
-        console.log("---------------------");
-        console.log("DELETED FROM HOSPITAL!\n");
-        console.log("---------------------");
-        loadOptionsMenu();
-      }
-    );
-  } else if (val.choice == "zipcode") {
-    connection.query(
-      "DELETE FROM hospital WHERE zipcode = ?",
-      [val.value],
-      function (err, res) {
-        if (err) throw err;
-        console.log("---------------------");
-        console.log("DELETED FROM HOSPITAL!\n");
-        console.log("---------------------");
-        loadOptionsMenu();
-      }
-    );
-  } else if (val.choice == "phone") {
-    connection.query(
-      "DELETE FROM hospital WHERE phone = ?",
-      [val.value],
-      function (err, res) {
-        if (err) throw err;
-        console.log("---------------------");
-        console.log("DELETED FROM HOSPITAL!\n");
-        console.log("---------------------");
-        loadOptionsMenu();
-      }
-    );
-  };
+  switch (val.choice){
+    case "hospital_name":
+      connection.query(
+        "DELETE FROM hospital WHERE hospital_name = ?",
+        [val.value],
+        function (err, res) {
+          if (err) throw err;
+          console.log("---------------------");
+          console.log("DELETED FROM HOSPITAL!\n");
+          console.log("---------------------");
+          loadOptionsMenu();
+        }
+      );
+      break;
+    case "street":
+      connection.query(
+        "DELETE FROM hospital WHERE street = ?",
+        [val.value],
+        function (err, res) {
+          if (err) throw err;
+          console.log("---------------------");
+          console.log("DELETED FROM HOSPITAL!\n");
+          console.log("---------------------");
+          loadOptionsMenu();
+        }
+      );
+      break;
+    case "city":
+      connection.query(
+        "DELETE FROM hospital WHERE city = ?",
+        [val.value],
+        function (err, res) {
+          if (err) throw err;
+          console.log("---------------------");
+          console.log("DELETED FROM HOSPITAL!\n");
+          console.log("---------------------");
+          loadOptionsMenu();
+        }
+      );
+      break;
+    case "zipcode":
+      connection.query(
+        "DELETE FROM hospital WHERE zipcode = ?",
+        [val.value],
+        function (err, res) {
+          if (err) throw err;
+          console.log("---------------------");
+          console.log("DELETED FROM HOSPITAL!\n");
+          console.log("---------------------");
+          loadOptionsMenu();
+        }
+      );
+      break;
+    case "phone":
+      connection.query(
+        "DELETE FROM hospital WHERE phone = ?",
+        [val.value],
+        function (err, res) {
+          if (err) throw err;
+          console.log("---------------------");
+          console.log("DELETED FROM HOSPITAL!\n");
+          console.log("---------------------");
+          loadOptionsMenu();
+        }
+      );
+      break;
+    default:
+      console.log("Please pick an option")
+      displayDeleteHospital();   
+  }
 };
 
 function displayDeletePatient() {
@@ -1001,68 +1094,76 @@ function displayDeletePatient() {
       {
         type: "list",
         name: "choice",
-        message: "What would you like to update?",
+        message: "What would you like to removes?",
         choices: ["first_name", "last_name", "blood_group", "patient_disease"]
       },
       {
         type: "input",
-        name: "idValue",
-        message: "Enter id that you would like to be updated"
+        name: "value",
+        message: "Enter value that you would like to be removed"
       }
     ])
     .then(deletePatient);
 }
 
 function deletePatient(val) {
-  if (val.choice == "first_name") {
-    connection.query(
-      "DELETE FROM patient WHERE first_name = ?",
-      [val.value],
-      function (err, res) {
-        if (err) throw err;
-        console.log("---------------------");
-        console.log("DELETED FROM PATIENT!\n");
-        console.log("---------------------");
-        loadOptionsMenu();
-      }
-    );
-  } else if (val.choice == "last_name") {
-    connection.query(
-      "DELETE FROM patient WHERE last_name = ?",
-      [val.value],
-      function (err, res) {
-        if (err) throw err;
-        console.log("---------------------");
-        console.log("DELETED FROM PATIENT!\n");
-        console.log("---------------------");
-        loadOptionsMenu();
-      }
-    );
-  } else if (val.choice == "blood_group") {
-    connection.query(
-      "DELETE FROM patient WHERE blood_group = ?",
-      [val.value],
-      function (err, res) {
-        if (err) throw err;
-        console.log("---------------------");
-        console.log("DELETED FROM PATIENT!\n");
-        console.log("---------------------");
-        loadOptionsMenu();
-      }
-    );
-  } else if (val.choice == "patient_disease") {
-    connection.query(
-      "DELETE FROM patient WHERE patient_disease = ?",
-      [val.value],
-      function (err, res) {
-        if (err) throw err;
-        console.log("---------------------");
-        console.log("DELETED FROM PATIENT!\n");
-        console.log("---------------------");
-        loadOptionsMenu();
-      }
-    );
-  };
+  switch (val.choice){
+    case "first_name":
+      connection.query(
+        "DELETE FROM patient WHERE first_name = ?",
+        [val.value],
+        function (err, res) {
+          if (err) throw err;
+          console.log("---------------------");
+          console.log("DELETED FROM PATIENT!\n");
+          console.log("---------------------");
+          loadOptionsMenu();
+        }
+      );
+      break;
+    case "last_name":
+      connection.query(
+        "DELETE FROM patient WHERE last_name = ?",
+        [val.value],
+        function (err, res) {
+          if (err) throw err;
+          console.log("---------------------");
+          console.log("DELETED FROM PATIENT!\n");
+          console.log("---------------------");
+          loadOptionsMenu();
+        }
+      );
+      break;
+    case "blood_group":
+      connection.query(
+        "DELETE FROM patient WHERE blood_group = ?",
+        [val.value],
+        function (err, res) {
+          if (err) throw err;
+          console.log("---------------------");
+          console.log("DELETED FROM PATIENT!\n");
+          console.log("---------------------");
+          loadOptionsMenu();
+        }
+      );
+      break;
+    case "patient_disease":
+      connection.query(
+        "DELETE FROM patient WHERE patient_disease = ?",
+        [val.value],
+        function (err, res) {
+          if (err) throw err;
+          console.log("---------------------");
+          console.log("DELETED FROM PATIENT!\n");
+          console.log("---------------------");
+          loadOptionsMenu();
+        }
+      );
+      break;
+    default:
+      console.log("Please pick an option");
+      displayDeletePatient();
+  }
 };
 
 function loadInnerJoins() {
@@ -1074,20 +1175,27 @@ function loadInnerJoins() {
       message: "Which table would you like to SELECT INNER JOIN?"
     })
     .then(function (val) {
-      if (val.choice == "blood bank donations") {
-        loadBloodBankDonations();
-      } else if (val.choice == "blood type compability") {
-        loadBloodBankCompability();
-      } else if (val.choice == "hospital donations") {
-        loadHospitalDonations();
-      } else if (val.choice == "patient blood usage") {
-        loadPatientBloodUsage();
-      } else if (val.choice == "Quit") {
-        process.exit(0);
+      switch (val.choice){
+        case "blood bank donations": 
+          loadBloodBankDonations();
+          break;
+        case "blood type compability": 
+          loadBloodBankCompability();
+          break;
+        case "hospital donations":
+          loadHospitalDonations();
+          break;
+        case "patient blood usage":
+          loadPatientBloodUsage();
+          break;
+        case "Quit":
+          process.exit(0);
+        default:
+          console.log("Please pick an option")
+          loadInnerJoins();
       }
     });
 }
-
 
 function loadBloodBankDonations() {
   connection.query(
