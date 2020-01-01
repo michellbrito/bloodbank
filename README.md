@@ -22,14 +22,14 @@ OS X & Linux:
 // clone the repo into computer 
 git clone https://github.com/michellbrito/bloodbank.git
 
-// install npm stages stored in the package.json
-npm i
-
 // cd into the repo
 cd bloodbank
 
 // create an .env file
 ex: DB_PASS=your_password
+
+// install npm stages stored in the package.json
+npm i
 
 // start the node application 
 node bloodbank.js
