@@ -44,7 +44,7 @@ node bloodbank.js
 
 ![Image](https://i.ibb.co/dPTCdL2/Screen-Shot-2019-12-31-at-7-40-17-PM.png)
 
-[![Demo CountPages alpha](https://thumbs.gfycat.com/MerryVariableEuropeanpolecat-mobile.mp4)](https://gfycat.com/merryvariableeuropeanpolecat)
+![Video](https://thumbs.gfycat.com/MerryVariableEuropeanpolecat-mobile.mp4)
 
 
 
