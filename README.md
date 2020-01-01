@@ -41,5 +41,6 @@ node bloodbank.js
  `node bloodbank.js`
  
 - You can now SELECT, INSERT, UPDATE, DELETE, SELECT INNER JOINS, QUIT by clicking the options
-![alt text](https://imgur.com/HN9ywMZ "Blood Bank Options")
+
+![Blood Bank Options](https://imgur.com/HN9ywMZ)
 
