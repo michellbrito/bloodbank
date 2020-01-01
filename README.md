@@ -4,6 +4,8 @@
  This blood bank project implements a terminal node js application that allows the user to SELECT, DELETE, INSERT, UPDATE, INNER JOIN. 
  
  
+ ## ER-Diagram
+ 
  ![ER-Diagram](https://i.imgur.com/FXhGkYt.png)
 
 ## Dependencies Used 
