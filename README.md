@@ -43,6 +43,8 @@ node bloodbank.js
 - You can now SELECT, INSERT, UPDATE, DELETE, SELECT INNER JOINS, QUIT by clicking the options
 
 ![Image](https://i.ibb.co/dPTCdL2/Screen-Shot-2019-12-31-at-7-40-17-PM.png)
-![2014-10-22 11_35_09](https://thumbs.gfycat.com/MerryVariableEuropeanpolecat-mobile.mp4)
+
+[![Demo CountPages alpha](https://thumbs.gfycat.com/MerryVariableEuropeanpolecat-mobile.mp4)](https://gfycat.com/merryvariableeuropeanpolecat)
+
 
 
