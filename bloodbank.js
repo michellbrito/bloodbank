@@ -1,7 +1,7 @@
 // Initializes the npm packages used
-var inquirer = require("inquirer");
-var questions = require("./questions/question");
-var connection = require("./connection/connection");
+const inquirer = require("inquirer");
+const questions = require("./questions/question");
+const connection = require("./connection/connection");
 require("dotenv").config();
 require("console.table");
 
