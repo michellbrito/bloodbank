@@ -35,16 +35,16 @@ function loadSelect() {
   inquirer.prompt(questions.loadSelect).then(function (val) {
     switch (val.choice) {
       case "blood bank":
-        loadBloodBankOptions();
+        loadDataBaseOptions("blood_bank");
         break;
       case "donor":
-        loadDonorOptions();
+        loadDonorOptions("donor");
         break;
       case "hospital":
-        loadHospitalOptions();
+        loadDonorOptions("hospital");
         break;
       case "patient":
-        loadPatientOptions();
+        loadDonorOptions("patient");
         break;
       default:
         process.exit(0);
@@ -52,32 +52,8 @@ function loadSelect() {
   });
 }
 
-function loadBloodBankOptions() {
-  connection.query("SELECT * FROM blood_bank", function (err, res) {
-    if (err) throw err;
-    console.table(res);
-    loadOptionsMenu();
-  });
-}
-
-function loadDonorOptions() {
-  connection.query("SELECT * FROM donor", function (err, res) {
-    if (err) throw err;
-    console.table(res);
-    loadOptionsMenu();
-  });
-}
-
-function loadHospitalOptions() {
-  connection.query("SELECT * FROM hospital", function (err, res) {
-    if (err) throw err;
-    console.table(res);
-    loadOptionsMenu();
-  });
-}
-
-function loadPatientOptions() {
-  connection.query("SELECT * FROM patient", function (err, res) {
+function loadDataBaseOptions(databaseName) {
+  connection.query(`SELECT * FROM ${databaseName}`, function (err, res) {
     if (err) throw err;
     console.table(res);
     loadOptionsMenu();
