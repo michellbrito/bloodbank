@@ -399,77 +399,37 @@ function loadUpdate() {
   });
 }
 
+function deleteTable(tableName, column, value) {
+  connection.query(
+    `DELETE FROM ${tableName} WHERE ${column} = ?`,
+    [value],
+    (err, res) => {
+      if (err) throw err;
+      console.table(res);
+      console.log('---------------------');
+      console.log(`DELETED ${column} FROM ${tableName}!\n`);
+      console.log('---------------------');
+      loadOptionsMenu();
+    },
+  );
+}
+
 function deleteBloodBank(val) {
   switch (val.choice) {
     case 'blood_bank_name':
-      connection.query(
-        'DELETE FROM blood_bank WHERE blood_bank_name = ?',
-        [val.value],
-        (err, res) => {
-          if (err) throw err;
-          console.table(res);
-          console.log('---------------------');
-          console.log('DELETED FROM BLOOD BANK!\n');
-          console.log('---------------------');
-          loadOptionsMenu();
-        },
-      );
+      deleteTable('blood_bank', 'blood_bank_name', val.value);
       break;
     case 'street':
-      connection.query(
-        'DELETE FROM blood_bank WHERE street = ?',
-        [val.value],
-        (err, res) => {
-          if (err) throw err;
-          console.table(res);
-          console.log('---------------------');
-          console.log('DELETED FROM BLOOD BANK!\n');
-          console.log('---------------------');
-          loadOptionsMenu();
-        },
-      );
+      deleteTable('blood_bank', 'street', val.value);
       break;
     case 'city':
-      connection.query(
-        'DELETE FROM blood_bank WHERE city = ?',
-        [val.value],
-        (err, res) => {
-          if (err) throw err;
-          console.table(res);
-          console.log('---------------------');
-          console.log('DELETED FROM BLOOD BANK!\n');
-          console.log('---------------------');
-          loadOptionsMenu();
-        },
-      );
+      deleteTable('blood_bank', 'city', val.value);
       break;
     case 'zipcode':
-      connection.query(
-        'DELETE FROM blood_bank WHERE zipcode = ?',
-        [val.value],
-        (err, res) => {
-          if (err) throw err;
-          console.table(res);
-          console.log('---------------------');
-          console.log('DELETED FROM BLOOD BANK!\n');
-          console.log('---------------------');
-          loadOptionsMenu();
-        },
-      );
+      deleteTable('blood_bank', 'zipcode', val.value);
       break;
     case 'phone':
-      connection.query(
-        'DELETE FROM blood_bank WHERE phone = ?',
-        [val.value],
-        (err, res) => {
-          if (err) throw err;
-          console.table(res);
-          console.log('---------------------');
-          console.log('DELETED FROM BLOOD BANK!\n');
-          console.log('---------------------');
-          loadOptionsMenu();
-        },
-      );
+      deleteTable('blood_bank', 'phone', val.value);
       break;
     default:
       process.exit(0);
@@ -483,108 +443,28 @@ function displayDeleteBloodBank() {
 function deleteDonor(val) {
   switch (val.choice) {
     case 'first_name':
-      connection.query(
-        'DELETE FROM donor WHERE first_name = ?',
-        [val.value],
-        (err) => {
-          if (err) throw err;
-          console.log('---------------------');
-          console.log('DELETED FROM DONOR!\n');
-          console.log('---------------------');
-          loadOptionsMenu();
-        },
-      );
+      deleteTable('donor', 'first_name', val.value);
       break;
     case 'last_name':
-      connection.query(
-        'DELETE FROM donor WHERE last_name = ?',
-        [val.value],
-        (err) => {
-          if (err) throw err;
-          console.log('---------------------');
-          console.log('DELETED FROM DONOR!\n');
-          console.log('---------------------');
-          loadOptionsMenu();
-        },
-      );
+      deleteTable('donor', 'last_name', val.value);
       break;
     case 'blood_group':
-      connection.query(
-        'DELETE FROM donor WHERE blood_group = ?',
-        [val.value],
-        (err) => {
-          if (err) throw err;
-          console.log('---------------------');
-          console.log('DELETED FROM DONOR!\n');
-          console.log('---------------------');
-          loadOptionsMenu();
-        },
-      );
+      deleteTable('donor', 'blood_group', val.value);
       break;
     case 'medical_report':
-      connection.query(
-        'DELETE FROM donor WHERE medical_report = ?',
-        [val.value],
-        (err) => {
-          if (err) throw err;
-          console.log('---------------------');
-          console.log('DELETED FROM DONOR!\n');
-          console.log('---------------------');
-          loadOptionsMenu();
-        },
-      );
+      deleteTable('donor', 'medical_report', val.value);
       break;
     case 'street':
-      connection.query(
-        'DELETE FROM donor WHERE street = ?',
-        [val.value],
-        (err) => {
-          if (err) throw err;
-          console.log('---------------------');
-          console.log('DELETED FROM DONOR!\n');
-          console.log('---------------------');
-          loadOptionsMenu();
-        },
-      );
+      deleteTable('donor', 'street', val.value);
       break;
     case 'city':
-      connection.query(
-        'DELETE FROM donor WHERE city = ?',
-        [val.value],
-        (err) => {
-          if (err) throw err;
-          console.log('---------------------');
-          console.log('DELETED FROM DONOR!\n');
-          console.log('---------------------');
-          loadOptionsMenu();
-        },
-      );
+      deleteTable('donor', 'city', val.value);
       break;
     case 'zipcode':
-      connection.query(
-        'DELETE FROM donor WHERE zipcode = ?',
-        [val.value],
-        (err) => {
-          if (err) throw err;
-          console.log('---------------------');
-          console.log('DELETED FROM DONOR!\n');
-          console.log('---------------------');
-          loadOptionsMenu();
-        },
-      );
+      deleteTable('donor', 'zipcode', val.value);
       break;
     case 'phone':
-      connection.query(
-        'DELETE FROM donor WHERE phone = ?',
-        [val.value],
-        (err) => {
-          if (err) throw err;
-          console.log('---------------------');
-          console.log('DELETED FROM DONOR!\n');
-          console.log('---------------------');
-          loadOptionsMenu();
-        },
-      );
+      deleteTable('donor', 'phone', val.value);
       break;
     default:
       process.exit(0);
@@ -598,69 +478,19 @@ function displayDeleteDonor() {
 function deleteHospital(val) {
   switch (val.choice) {
     case 'hospital_name':
-      connection.query(
-        'DELETE FROM hospital WHERE hospital_name = ?',
-        [val.value],
-        (err) => {
-          if (err) throw err;
-          console.log('---------------------');
-          console.log('DELETED FROM HOSPITAL!\n');
-          console.log('---------------------');
-          loadOptionsMenu();
-        },
-      );
+      deleteTable('hospital', 'hospital_name', val.value);
       break;
     case 'street':
-      connection.query(
-        'DELETE FROM hospital WHERE street = ?',
-        [val.value],
-        (err) => {
-          if (err) throw err;
-          console.log('---------------------');
-          console.log('DELETED FROM HOSPITAL!\n');
-          console.log('---------------------');
-          loadOptionsMenu();
-        },
-      );
+      deleteTable('hospital', 'street', val.value);
       break;
     case 'city':
-      connection.query(
-        'DELETE FROM hospital WHERE city = ?',
-        [val.value],
-        (err) => {
-          if (err) throw err;
-          console.log('---------------------');
-          console.log('DELETED FROM HOSPITAL!\n');
-          console.log('---------------------');
-          loadOptionsMenu();
-        },
-      );
+      deleteTable('hospital', 'city', val.value);
       break;
     case 'zipcode':
-      connection.query(
-        'DELETE FROM hospital WHERE zipcode = ?',
-        [val.value],
-        (err) => {
-          if (err) throw err;
-          console.log('---------------------');
-          console.log('DELETED FROM HOSPITAL!\n');
-          console.log('---------------------');
-          loadOptionsMenu();
-        },
-      );
+      deleteTable('hospital', 'zipcode', val.value);
       break;
     case 'phone':
-      connection.query(
-        'DELETE FROM hospital WHERE phone = ?',
-        [val.value],
-        (err) => {
-          if (err) throw err;
-          console.log('---------------------');
-          console.log('DELETED FROM HOSPITAL!\n');
-          console.log('---------------------');
-          loadOptionsMenu();
-        },
-      );
+      deleteTable('hospital', 'phone', val.value);
       break;
     default:
       process.exit(0);
@@ -674,56 +504,16 @@ function displayDeleteHospital() {
 function deletePatient(val) {
   switch (val.choice) {
     case 'first_name':
-      connection.query(
-        'DELETE FROM patient WHERE first_name = ?',
-        [val.value],
-        (err) => {
-          if (err) throw err;
-          console.log('---------------------');
-          console.log('DELETED FROM PATIENT!\n');
-          console.log('---------------------');
-          loadOptionsMenu();
-        },
-      );
+      deleteTable('patient', 'first_name', val.value);
       break;
     case 'last_name':
-      connection.query(
-        'DELETE FROM patient WHERE last_name = ?',
-        [val.value],
-        (err) => {
-          if (err) throw err;
-          console.log('---------------------');
-          console.log('DELETED FROM PATIENT!\n');
-          console.log('---------------------');
-          loadOptionsMenu();
-        },
-      );
+      deleteTable('patient', 'last_name', val.value);
       break;
     case 'blood_group':
-      connection.query(
-        'DELETE FROM patient WHERE blood_group = ?',
-        [val.value],
-        (err) => {
-          if (err) throw err;
-          console.log('---------------------');
-          console.log('DELETED FROM PATIENT!\n');
-          console.log('---------------------');
-          loadOptionsMenu();
-        },
-      );
+      deleteTable('patient', 'blood_group', val.value);
       break;
     case 'patient_disease':
-      connection.query(
-        'DELETE FROM patient WHERE patient_disease = ?',
-        [val.value],
-        (err) => {
-          if (err) throw err;
-          console.log('---------------------');
-          console.log('DELETED FROM PATIENT!\n');
-          console.log('---------------------');
-          loadOptionsMenu();
-        },
-      );
+      deleteTable('patient', 'patient_disease', val.value);
       break;
     default:
       process.exit(0);
