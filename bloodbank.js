@@ -140,6 +140,7 @@ function loadInsert() {
     }
   });
 }
+
 function updateTable(tableName, column, columnID, updatedValue, id) {
   connection.query(
     `UPDATE ${tableName} SET ${column} = ? WHERE ${columnID} = ?`,
@@ -155,19 +156,49 @@ function updateTable(tableName, column, columnID, updatedValue, id) {
 function updateBloodBank(val) {
   switch (val.choice) {
     case 'blood_bank_name':
-      updateTable('blood_bank', 'blood_bank_name', 'blood_bank_id', val.updatedValue, val.idValue);
+      updateTable(
+        'blood_bank',
+        'blood_bank_name',
+        'blood_bank_id',
+        val.updatedValue,
+        val.idValue,
+      );
       break;
     case 'street':
-      updateTable('blood_bank', 'street', 'blood_bank_id', val.updatedValue, val.idValue);
+      updateTable(
+        'blood_bank',
+        'street',
+        'blood_bank_id',
+        val.updatedValue,
+        val.idValue,
+      );
       break;
     case 'city':
-      updateTable('blood_bank', 'city', 'blood_bank_id', val.updatedValue, val.idValue);
+      updateTable(
+        'blood_bank',
+        'city',
+        'blood_bank_id',
+        val.updatedValue,
+        val.idValue,
+      );
       break;
     case 'zipcode':
-      updateTable('blood_bank', 'zipcode', 'blood_bank_id', val.updatedValue, val.idValue);
+      updateTable(
+        'blood_bank',
+        'zipcode',
+        'blood_bank_id',
+        val.updatedValue,
+        val.idValue,
+      );
       break;
     case 'phone':
-      updateTable('blood_bank', 'phone', 'blood_bank_id', val.updatedValue, val.idValue);
+      updateTable(
+        'blood_bank',
+        'phone',
+        'blood_bank_id',
+        val.updatedValue,
+        val.idValue,
+      );
       break;
     default:
       process.exit(0);
@@ -181,16 +212,40 @@ function displayUpdateBloodBank() {
 function updateDonor(val) {
   switch (val.choice) {
     case 'first_name':
-      updateTable('donor', 'first_name', 'donor_id', val.updatedValue, val.idValue);
+      updateTable(
+        'donor',
+        'first_name',
+        'donor_id',
+        val.updatedValue,
+        val.idValue,
+      );
       break;
     case 'last_name':
-      updateTable('donor', 'last_name', 'donor_id', val.updatedValue, val.idValue);
+      updateTable(
+        'donor',
+        'last_name',
+        'donor_id',
+        val.updatedValue,
+        val.idValue,
+      );
       break;
     case 'blood_group':
-      updateTable('donor', 'blood_group', 'donor_id', val.updatedValue, val.idValue);
+      updateTable(
+        'donor',
+        'blood_group',
+        'donor_id',
+        val.updatedValue,
+        val.idValue,
+      );
       break;
     case 'medical_report':
-      updateTable('donor', 'medical_report', 'donor_id', val.updatedValue, val.idValue);
+      updateTable(
+        'donor',
+        'medical_report',
+        'donor_id',
+        val.updatedValue,
+        val.idValue,
+      );
       break;
     case 'street':
       updateTable('donor', 'street', 'donor_id', val.updatedValue, val.idValue);
@@ -199,7 +254,13 @@ function updateDonor(val) {
       updateTable('donor', 'city', 'donor_id', val.updatedValue, val.idValue);
       break;
     case 'zipcode':
-      updateTable('donor', 'zipcode', 'donor_id', val.updatedValue, val.idValue);
+      updateTable(
+        'donor',
+        'zipcode',
+        'donor_id',
+        val.updatedValue,
+        val.idValue,
+      );
       break;
     case 'phone':
       updateTable('donor', 'phone', 'donor_id', val.updatedValue, val.idValue);
@@ -216,20 +277,50 @@ function displayUpdateDonor() {
 function updateHospital(val) {
   switch (val.choice) {
     case 'hospital_name':
-      updateTable('hospital', 'hospital_name', 'hospital_id', val.updatedValue, val.idValue);
+      updateTable(
+        'hospital',
+        'hospital_name',
+        'hospital_id',
+        val.updatedValue,
+        val.idValue,
+      );
       break;
 
     case 'street':
-      updateTable('hospital', 'street', 'hospital_id', val.updatedValue, val.idValue);
+      updateTable(
+        'hospital',
+        'street',
+        'hospital_id',
+        val.updatedValue,
+        val.idValue,
+      );
       break;
     case 'city':
-      updateTable('hospital', 'city', 'hospital_id', val.updatedValue, val.idValue);
+      updateTable(
+        'hospital',
+        'city',
+        'hospital_id',
+        val.updatedValue,
+        val.idValue,
+      );
       break;
     case 'zipcode':
-      updateTable('hospital', 'zipcode', 'hospital_id', val.updatedValue, val.idValue);
+      updateTable(
+        'hospital',
+        'zipcode',
+        'hospital_id',
+        val.updatedValue,
+        val.idValue,
+      );
       break;
     case 'phone':
-      updateTable('hospital', 'phone', 'hospital_id', val.updatedValue, val.idValue);
+      updateTable(
+        'hospital',
+        'phone',
+        'hospital_id',
+        val.updatedValue,
+        val.idValue,
+      );
       break;
     default:
       process.exit(0);
@@ -243,16 +334,40 @@ function displayUpdateHospital() {
 function updatePatient(val) {
   switch (val.choice) {
     case 'first_name':
-      updateTable('patient', 'first_name', 'patient_id', val.updatedValue, val.idValue);
+      updateTable(
+        'patient',
+        'first_name',
+        'patient_id',
+        val.updatedValue,
+        val.idValue,
+      );
       break;
     case 'last_name':
-      updateTable('patient', 'last_name', 'patient_id', val.updatedValue, val.idValue);
+      updateTable(
+        'patient',
+        'last_name',
+        'patient_id',
+        val.updatedValue,
+        val.idValue,
+      );
       break;
     case 'blood_group':
-      updateTable('patient', 'blood_group', 'patient_id', val.updatedValue, val.idValue);
+      updateTable(
+        'patient',
+        'blood_group',
+        'patient_id',
+        val.updatedValue,
+        val.idValue,
+      );
       break;
     case 'patient_disease':
-      updateTable('patient', 'patient_disease', 'patient_id', val.updatedValue, val.idValue);
+      updateTable(
+        'patient',
+        'patient_disease',
+        'patient_id',
+        val.updatedValue,
+        val.idValue,
+      );
       break;
     default:
       process.exit(0);
