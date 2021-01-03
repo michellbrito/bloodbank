@@ -60,6 +60,18 @@ function loadDataBaseOptions(databaseName) {
   });
 }
 
+function updateTable(tableName, column, columnID, updatedValue, id){
+  connection.query(
+    `UPDATE ${tableName} SET ${column} = ? WHERE ${columnID} = ?`,
+    [updatedValue, id],
+    function (err, res) {
+      if (err) throw err;
+      console.log("\nSuccessfully added");
+      loadOptionsMenu();
+    }
+  );
+}
+
 function loadInsert() {
   inquirer.prompt(questions.loadInsert).then(function (val) {
     switch (val.choice) {
@@ -192,59 +204,19 @@ function displayUpdateBloodBank() {
 function updateBloodBank(val) {
   switch (val.choice) {
     case "blood_bank_name":
-      connection.query(
-        "UPDATE blood_bank SET blood_bank_name = ? WHERE blood_bank_id = ?",
-        [val.updatedValue, val.idValue],
-        function (err, res) {
-          if (err) throw err;
-          console.log("\nSuccessfully added");
-          loadOptionsMenu();
-        }
-      );
+      updateTable("blood_bank", "blood_bank_name", "blood_bank_id",val.updatedValue, val.idValue);
       break;
     case "street":
-      connection.query(
-        "UPDATE blood_bank SET street = ? WHERE blood_bank_id = ?",
-        [val.updatedValue, val.idValue],
-        function (err, res) {
-          if (err) throw err;
-          console.log("\nSuccessfully added");
-          loadOptionsMenu();
-        }
-      );
+      updateTable("blood_bank", "street", "blood_bank_id",val.updatedValue, val.idValue);
       break;
     case "city":
-      connection.query(
-        "UPDATE blood_bank SET city = ? WHERE blood_bank_id = ?",
-        [val.updatedValue, val.idValue],
-        function (err, res) {
-          if (err) throw err;
-          console.log("\nSuccessfully added");
-          loadOptionsMenu();
-        }
-      );
+      updateTable("blood_bank", "city", "blood_bank_id",val.updatedValue, val.idValue);
       break;
     case "zipcode":
-      connection.query(
-        "UPDATE blood_bank SET zipcode = ? WHERE blood_bank_id = ?",
-        [val.updatedValue, val.idValue],
-        function (err, res) {
-          if (err) throw err;
-          console.log("\nSuccessfully added");
-          loadOptionsMenu();
-        }
-      );
+      updateTable("blood_bank", "zipcode", "blood_bank_id",val.updatedValue, val.idValue);
       break;
     case "phone":
-      connection.query(
-        "UPDATE blood_bank SET phone = ? WHERE blood_bank_id = ?",
-        [val.updatedValue, val.idValue],
-        function (err, res) {
-          if (err) throw err;
-          console.log("\nSuccessfully added");
-          loadOptionsMenu();
-        }
-      );
+      updateTable("blood_bank", "phone", "blood_bank_id",val.updatedValue, val.idValue);
       break;
     default:
       process.exit(0);
@@ -258,92 +230,28 @@ function displayUpdateDonor() {
 function updateDonor(val) {
   switch (val.choice) {
     case "first_name":
-      connection.query(
-        "UPDATE donor SET first_name = ? WHERE donor_id = ?",
-        [val.updatedValue, val.idValue],
-        function (err, res) {
-          if (err) throw err;
-          console.log("\nSuccessfully added");
-          loadOptionsMenu();
-        }
-      );
+      updateTable("donor", "first_name", "donor_id",val.updatedValue, val.idValue);
       break;
     case "last_name":
-      connection.query(
-        "UPDATE donor SET last_name = ? WHERE donor_id = ?",
-        [val.updatedValue, val.idValue],
-        function (err, res) {
-          if (err) throw err;
-          console.log("\nSuccessfully added");
-          loadOptionsMenu();
-        }
-      );
+      updateTable("donor", "last_name", "donor_id",val.updatedValue, val.idValue);
       break;
     case "blood_group":
-      connection.query(
-        "UPDATE donor SET blood_group = ? WHERE donor_id = ?",
-        [val.updatedValue, val.idValue],
-        function (err, res) {
-          if (err) throw err;
-          console.log("\nSuccessfully added");
-          loadOptionsMenu();
-        }
-      );
+      updateTable("donor", "blood_group", "donor_id",val.updatedValue, val.idValue);
       break;
     case "medical_report":
-      connection.query(
-        "UPDATE donor SET medical_report = ? WHERE donor_id = ?",
-        [val.updatedValue, val.idValue],
-        function (err, res) {
-          if (err) throw err;
-          console.log("\nSuccessfully added");
-          loadOptionsMenu();
-        }
-      );
+      updateTable("donor", "medical_report", "donor_id",val.updatedValue, val.idValue);
       break;
     case "street":
-      connection.query(
-        "UPDATE donor SET street = ? WHERE donor_id = ?",
-        [val.updatedValue, val.idValue],
-        function (err, res) {
-          if (err) throw err;
-          console.log("\nSuccessfully added");
-          loadOptionsMenu();
-        }
-      );
+      updateTable("donor", "street", "donor_id",val.updatedValue, val.idValue);
       break;
     case "city":
-      connection.query(
-        "UPDATE donor SET city = ? WHERE donor_id = ?",
-        [val.updatedValue, val.idValue],
-        function (err, res) {
-          if (err) throw err;
-          console.log("\nSuccessfully added");
-          loadOptionsMenu();
-        }
-      );
+      updateTable("donor", "city", "donor_id",val.updatedValue, val.idValue);
       break;
     case "zipcode":
-      connection.query(
-        "UPDATE donor SET zipcode = ? WHERE donor_id = ?",
-        [val.updatedValue, val.idValue],
-        function (err, res) {
-          if (err) throw err;
-          console.log("\nSuccessfully added");
-          loadOptionsMenu();
-        }
-      );
+      updateTable("donor", "zipcode", "donor_id",val.updatedValue, val.idValue);
       break;
     case "phone":
-      connection.query(
-        "UPDATE donor SET phone = ? WHERE donor_id = ?",
-        [val.updatedValue, val.idValue],
-        function (err, res) {
-          if (err) throw err;
-          console.log("\nSuccessfully added");
-          loadOptionsMenu();
-        }
-      );
+      updateTable("donor", "phone", "donor_id",val.updatedValue, val.idValue);
       break;
     default:
       process.exit(0);
@@ -357,60 +265,20 @@ function displayUpdateHospital() {
 function updateHospital(val) {
   switch (val.choice) {
     case "hospital_name":
-      connection.query(
-        "UPDATE hospital SET hospital_name = ? WHERE hospital_id = ?",
-        [val.updatedValue, val.idValue],
-        function (err, res) {
-          if (err) throw err;
-          console.log("\nSuccessfully added");
-          loadOptionsMenu();
-        }
-      );
+      updateTable("hospital", "hospital_name", "hospital_id", val.updatedValue, val.idValue);
       break;
 
     case "street":
-      connection.query(
-        "UPDATE hospital SET street = ? WHERE hospital_id = ?",
-        [val.updatedValue, val.idValue],
-        function (err, res) {
-          if (err) throw err;
-          console.log("\nSuccessfully added");
-          loadOptionsMenu();
-        }
-      );
+      updateTable("hospital", "street", "hospital_id", val.updatedValue, val.idValue);
       break;
     case "city":
-      connection.query(
-        "UPDATE hospital SET city = ? WHERE hospital_id = ?",
-        [val.updatedValue, val.idValue],
-        function (err, res) {
-          if (err) throw err;
-          console.log("\nSuccessfully added");
-          loadOptionsMenu();
-        }
-      );
+      updateTable("hospital", "city", "hospital_id", val.updatedValue, val.idValue);
       break;
     case "zipcode":
-      connection.query(
-        "UPDATE hospital SET zipcode = ? WHERE hospital_id = ?",
-        [val.updatedValue, val.idValue],
-        function (err, res) {
-          if (err) throw err;
-          console.log("\nSuccessfully added");
-          loadOptionsMenu();
-        }
-      );
+      updateTable("hospital", "zipcode", "hospital_id", val.updatedValue, val.idValue);
       break;
     case "phone":
-      connection.query(
-        "UPDATE hospital SET phone = ? WHERE hospital_id = ?",
-        [val.updatedValue, val.idValue],
-        function (err, res) {
-          if (err) throw err;
-          console.log("\nSuccessfully added");
-          loadOptionsMenu();
-        }
-      );
+      updateTable("hospital", "phone", "hospital_id", val.updatedValue, val.idValue);
       break;
     default:
       process.exit(0);
@@ -424,48 +292,16 @@ function displayUpdatePatient() {
 function updatePatient(val) {
   switch (val.choice) {
     case "first_name":
-      connection.query(
-        "UPDATE patient SET first_name = ? WHERE patient_id = ?",
-        [val.updatedValue, val.idValue],
-        function (err, res) {
-          if (err) throw err;
-          console.log("\nSuccessfully added");
-          loadOptionsMenu();
-        }
-      );
+      updateTable("patient", "first_name", "patient_id", val.updatedValue, val.idValue);
       break;
     case "last_name":
-      connection.query(
-        "UPDATE patient SET last_name = ? WHERE patient_id = ?",
-        [val.updatedValue, val.idValue],
-        function (err, res) {
-          if (err) throw err;
-          console.log("\nSuccessfully added");
-          loadOptionsMenu();
-        }
-      );
+      updateTable("patient", "last_name", "patient_id", val.updatedValue, val.idValue);
       break;
     case "blood_group":
-      connection.query(
-        "UPDATE patient SET blood_group = ? WHERE patient_id = ?",
-        [val.updatedValue, val.idValue],
-        function (err, res) {
-          if (err) throw err;
-          console.log("\nSuccessfully added");
-          loadOptionsMenu();
-        }
-      );
+      updateTable("patient", "blood_group", "patient_id", val.updatedValue, val.idValue);
       break;
     case "patient_disease":
-      connection.query(
-        "UPDATE patient SET patient_disease = ? WHERE patient_id = ?",
-        [val.updatedValue, val.idValue],
-        function (err, res) {
-          if (err) throw err;
-          console.log("\nSuccessfully added");
-          loadOptionsMenu();
-        }
-      );
+      updateTable("patient", "patient_disease", "patient_id", val.updatedValue, val.idValue);
       break;
     default:
       process.exit(0);
