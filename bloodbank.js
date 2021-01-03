@@ -545,55 +545,13 @@ function loadDelete() {
   });
 }
 
-function loadBloodBankDonations() {
+function innerJoins(firstTable, secondTable, thirdTable, firstColumn, secondColumn) {
   connection.query(
-    'SELECT * FROM blood_bank_donations INNER JOIN donor ON blood_bank_donations.donor_id = donor.donor_id INNER JOIN blood_bank ON blood_bank_donations.blood_bank_id = blood_bank.blood_bank_id',
+    `SELECT * FROM ${firstTable} INNER JOIN ${secondTable} ON ${firstTable}.${firstColumn} = ${secondTable}.${firstColumn} INNER JOIN ${thirdTable} ON ${firstTable}.${secondColumn} = ${thirdTable}.${secondColumn}`,
     (err, res) => {
       if (err) throw err;
       console.log('---------------------');
-      console.log('SELECTED INNER JOIN FROM BLOOD BANK DONATIONS!\n');
-      console.log('---------------------');
-      console.table(res);
-      loadOptionsMenu();
-    },
-  );
-}
-
-function loadBloodBankCompability() {
-  connection.query(
-    'SELECT * FROM blood_type_compability INNER JOIN patient ON blood_type_compability.patient_id = patient.patient_id INNER JOIN donor ON blood_type_compability.donor_id = donor.donor_id',
-    (err, res) => {
-      if (err) throw err;
-      console.log('---------------------');
-      console.log('SELECTED INNER JOIN FROM BLOOD BANK TYPE COMPABILITY!\n');
-      console.log('---------------------');
-      console.table(res);
-      loadOptionsMenu();
-    },
-  );
-}
-
-function loadHospitalDonations() {
-  connection.query(
-    'SELECT * FROM hospital_donations INNER JOIN hospital ON hospital_donations.hospital_id = hospital.hospital_id INNER JOIN blood_bank ON hospital_donations.blood_bank_id = blood_bank.blood_bank_id',
-    (err, res) => {
-      if (err) throw err;
-      console.log('---------------------');
-      console.log('SELECTED INNER JOIN FROM HOSPITAL DONATIONS!\n');
-      console.log('---------------------');
-      console.table(res);
-      loadOptionsMenu();
-    },
-  );
-}
-
-function loadPatientBloodUsage() {
-  connection.query(
-    'SELECT * FROM patient_blood_usage INNER JOIN patient ON patient_blood_usage.patient_id = patient.patient_id INNER JOIN hospital ON patient_blood_usage.hospital_id = hospital.hospital_id',
-    (err, res) => {
-      if (err) throw err;
-      console.log('---------------------');
-      console.log('SELECTED INNER JOIN FROM PATIENT BLOOD USAGE!\n');
+      console.log(`SELECTED INNER JOIN FROM ${firstTable}, ${secondTable}, ${thirdTable}!\n`);
       console.log('---------------------');
       console.table(res);
       loadOptionsMenu();
@@ -605,16 +563,16 @@ function loadInnerJoins() {
   inquirer.prompt(questions.loadInnerJoins).then((val) => {
     switch (val.choice) {
       case 'blood bank donations':
-        loadBloodBankDonations();
+        innerJoins('blood_bank_donations', 'donor', 'blood_bank', 'donor_id', 'blood_bank_id');
         break;
       case 'blood type compability':
-        loadBloodBankCompability();
+        innerJoins('blood_type_compability', 'patient', 'donor', 'patient_id', 'donor_id');
         break;
       case 'hospital donations':
-        loadHospitalDonations();
+        innerJoins('hospital_donations', 'hospital', 'blood_bank', 'hospital_id', 'blood_bank_id');
         break;
       case 'patient blood usage':
-        loadPatientBloodUsage();
+        innerJoins('patient_blood_usage', 'patient', 'hospital', 'patient_id', 'hospital_id');
         break;
       default:
         process.exit(0);
